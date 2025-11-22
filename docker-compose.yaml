@@ -1,0 +1,22 @@
+services:
+  files-cleaner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: files-cleaner
+    volumes:
+      - files_storage:/data_files_storage
+    env_file:
+      - .env
+    command: ["python", "main.py"]
+    restart: unless-stopped
+
+volumes:
+  files_storage:
+    name: files_storage
+    external: true
+
+networks:
+  default:
+    name: shared-net
+    external: true
